@@ -6,6 +6,10 @@ import Cards from './components/cards/Cards.jsx';
 import Nav from './components/Nav/nav';
 import { useState } from 'react'; 
 import axios from 'axios';
+import { Routes, Route } from "react-router-dom";
+import About from './components/about/About.jsx';
+import Detail from './components/card/detail/Detail';
+
 
 function App() {
 
@@ -44,11 +48,21 @@ const onClose = id => {
 
    return (
       <div className='App' style={{padding: "25px"}}>
-         < Nav onSearch={onSearch} />
-         <hr />
-         <Cards characters ={characters} onClose={onClose}/>
+         <Nav onSearch={onSearch} />
+         <Routes>
+            <Route path="home" element={<Cards characters ={characters} onClose={onClose}/>} />
+            <Route path="about" element={<About />} />
+            <Route path="detail/:id" element={<Detail />} />
+
+         </Routes>
+        
       </div>
    );
 }
+//  {/* 
+//          <button onClick={}>Home</button> */}
+//          <hr />
+//          <Cards characters ={characters} onClose={onClose}/>
+
 
 export default App;
