@@ -7,8 +7,8 @@ import Nav from './components/Nav/nav';
 import { useState } from 'react'; 
 import axios from 'axios';
 import { Routes, Route } from "react-router-dom";
-import About from './components/about/About.jsx';
-import Detail from './components/card/detail/Detail';
+import About from './components/about/About';
+import Detail from './components/detail/Detail';
 
 
 function App() {
@@ -53,7 +53,6 @@ const onClose = id => {
             <Route path="home" element={<Cards characters ={characters} onClose={onClose}/>} />
             <Route path="about" element={<About />} />
             <Route path="detail/:id" element={<Detail />} />
-
          </Routes>
         
       </div>
