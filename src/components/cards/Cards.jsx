@@ -5,16 +5,16 @@ export default function Cards(props) {
    
    return (
       <div style={{display: "flex", justifyContent: "space-between"}}>  
-         {characters.map(character => (
+         {characters.map(char => (
             <Card
-            key={character.id}
-            id={character.id}
-            name= {character.name}
-            species={character.species}
-            status= {character.status}
-            gender= {character.gender}
-            image={character.image}
-            onClose={() => props.onClose(character.id)}
+            key={char.id}
+            id={char.id}
+            name= {char.name}
+            species={char.species}
+            status= {char.status}
+            gender= {char.gender}
+            image={char.image}
+            onClose={() => props.onClose(char.id)}
             />
          ))}
       </div>
