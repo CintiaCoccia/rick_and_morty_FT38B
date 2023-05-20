@@ -1,36 +1,35 @@
-import './App.css';
-// import Card from './components/card/Card.jsx';
-import Cards from './components/cards/Cards.jsx';
 // import SearchBar from './components/searchbar/SearchBar.jsx';
 //import characters, { Rick } from './data.js';
+// import Card from './components/card/Card.jsx';
+import './App.css';
+import Cards from './components/cards/Cards.jsx';
 import Nav from './components/Nav/nav';
-import { useState } from 'react'; 
+import { useEffect, useState } from 'react'; 
 import axios from 'axios';
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import About from './components/about/About';
 import Detail from './components/detail/Detail';
-
+import Form from './components/form/Form';
 
 function App() {
 
 const [characters, setCharacters] = useState([]); 
 
-// const example = {
-//    id: 1,
-//    name: 'Rick Sanchez',
-//    status: 'Alive',
-//    species: 'Human',
-//    gender: 'Male',
-//    origin: {
-//       name: 'Earth (C-137)',
-//       url: 'https://rickandmortyapi.com/api/location/1',
-//    },
-//    image: 'https://rickandmortyapi.com/api/character/avatar/1.jpeg',
-// };
+const navigate = useNavigate();
+const [access, setAccess] = useState(false);
+const EMAIL = 'ejemplo@gmail.com';
+const PASSWORD = 'unaPassword';
 
-// const onSearch = (id) => {
-//    setCharacters((as) => [...as, example]);  //ver setCharacters, qué hace?
-// }
+function login(userData) {
+   if (userData.password === PASSWORD && userData.email === EMAIL) {
+      setAccess(true);
+      navigate('/home');
+   }
+}
+
+useEffect(() => {
+   !access && navigate('/');
+}, [access]);
 
 const onSearch = (id) => {
    axios(`https://rickandmortyapi.com/api/character/${id}`).then(({ data }) => {
@@ -45,23 +44,22 @@ const onSearch = (id) => {
 const onClose = id => {
    setCharacters(characters.filter(char => char.id !==id))
 }
+const location = useLocation();
 
-   return (
-      <div className='App' style={{padding: "25px"}}>
-         <Nav onSearch={onSearch} />
+   
+return (
+      <div className='App'>
+         {location.pathname !== "/" && <Nav onSearch={onSearch} />}
          <Routes>
-            <Route path="home" element={<Cards characters ={characters} onClose={onClose}/>} />
-            <Route path="about" element={<About />} />
-            <Route path="detail/:id" element={<Detail />} />
+            <Route exact path="/" element={<Form login={login}/>} />     
+            <Route path="/home" element={<Cards characters ={characters} onClose={onClose}/>} />
+            <Route path="/about" element={<About />} />
+            <Route path="/detail/:id" element={<Detail />} />
+            
          </Routes>
         
       </div>
    );
 }
-//  {/* 
-//          <button onClick={}>Home</button> */}
-//          <hr />
-//          <Cards characters ={characters} onClose={onClose}/>
-
 
 export default App;

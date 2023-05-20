@@ -1,0 +1,30 @@
+.container {
+    color: white;
+    background-color: lightpink;
+    display: "flex";
+    margin: auto;
+    width: 200px;
+    margin-top: 20px;
+    padding: 25px;
+    border-radius: 10px;
+}
+
+.container input{
+    border-radius: 5px;
+    height: 20px;
+    margin: auto;
+    display: block;
+}
+
+.container button {
+    border-radius: 5px;
+    height: 20px;
+    background-color: lightpink;
+    color: blue;
+    padding: 1px;
+    font-size: 10px;
+}
+
+.errors {
+    color: red;
+}
