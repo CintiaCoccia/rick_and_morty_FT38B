@@ -30,8 +30,11 @@ export default function Form(props) {
     };
 
     const handleSubmit = (event) => {
+        console.log("hola")
         event.preventDefault();
+        console.log("chau")
         props.login(userData);
+        
     }
 
     return (
@@ -41,7 +44,7 @@ export default function Form(props) {
                 <input 
                 type="text" 
                 name="username" 
-                value={userData.email}
+                value={userData.username}
                 onChange= {handleinputChange}
                 />
                 <p className={styles.error}>

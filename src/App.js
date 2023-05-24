@@ -17,11 +17,13 @@ const [characters, setCharacters] = useState([]);
 
 const navigate = useNavigate();
 const [access, setAccess] = useState(false);
-const EMAIL = 'ejemplo@gmail.com';
-const PASSWORD = 'unaPassword';
+const email = 'ejemplo@gmail.com';
+const password = 'unaPassword1';
 
 function login(userData) {
-   if (userData.password === PASSWORD && userData.email === EMAIL) {
+   console.log(userData)
+   if (userData.password === password && userData.username === email) {
+      console.log("teamo")
       setAccess(true);
       navigate('/home');
    }
