@@ -17,13 +17,11 @@ const [characters, setCharacters] = useState([]);
 
 const navigate = useNavigate();
 const [access, setAccess] = useState(false);
-const email = 'ejemplo@gmail.com';
-const password = 'unaPassword1';
+const EMAIL = 'cintia_08@hotmail.com';
+const PASSWORD = 'abc1234';
 
 function login(userData) {
-   console.log(userData)
-   if (userData.password === password && userData.username === email) {
-      console.log("teamo")
+   if (userData.password === PASSWORD && userData.username === EMAIL) {
       setAccess(true);
       navigate('/home');
    }
@@ -31,7 +29,7 @@ function login(userData) {
 
 useEffect(() => {
    !access && navigate('/');
-}, [access]);
+}, [access, navigate]);
 
 const onSearch = (id) => {
    axios(`https://rickandmortyapi.com/api/character/${id}`).then(({ data }) => {
@@ -44,22 +42,20 @@ const onSearch = (id) => {
 }
 
 const onClose = id => {
-   setCharacters(characters.filter(char => char.id !==id))
+   setCharacters(characters.filter(char => char.id !== id))
 }
-const location = useLocation();
 
+const location = useLocation();
    
 return (
       <div className='App'>
          {location.pathname !== "/" && <Nav onSearch={onSearch} />}
          <Routes>
             <Route exact path="/" element={<Form login={login}/>} />     
-            <Route path="/home" element={<Cards characters ={characters} onClose={onClose}/>} />
+            <Route path="/home" element={<Cards characters={characters} onClose={onClose}/>} />
             <Route path="/about" element={<About />} />
             <Route path="/detail/:id" element={<Detail />} />
-            
          </Routes>
-        
       </div>
    );
 }

@@ -5,8 +5,8 @@ import validation from "./validation";
 export default function Form(props) {
     
     const [userData, setuserData] = useState({ 
-        username:"cintia_08@hotmail.com",
-        password:"123abc",
+        username:"",
+        password:"",
      });
 
     const [errors, setErrors] = useState({
@@ -30,16 +30,13 @@ export default function Form(props) {
     };
 
     const handleSubmit = (event) => {
-        console.log("hola")
         event.preventDefault();
-        console.log("chau")
         props.login(userData);
-        
     }
 
     return (
         <div className={styles.container}> 
-            <form onSubmit={handleSubmit}> 
+            <form onSubmit={handleSubmit}>
                 <label>Username</label>
                 <input 
                 type="text" 

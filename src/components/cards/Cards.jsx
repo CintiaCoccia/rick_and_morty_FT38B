@@ -1,7 +1,7 @@
 import Card from "../card/Card.jsx";
 
 export default function Cards(props) {
-   const {characters} = props;
+   const {characters, onClose } = props;
    
    return (
       <div style={{display: "flex", justifyContent: "space-between"}}>  
@@ -14,7 +14,7 @@ export default function Cards(props) {
             status= {char.status}
             gender= {char.gender}
             image={char.image}
-            onClose={() => props.onClose(char.id)}
+            onClose={() => onClose(char.id)}
             />
          ))}
       </div>
