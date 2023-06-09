@@ -10,6 +10,7 @@ import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import About from './components/about/About';
 import Detail from './components/detail/Detail';
 import Form from './components/form/Form';
+import Favorites from "./components/Favorites";
 
 function App() {
 
@@ -32,7 +33,7 @@ useEffect(() => {
 }, [access, navigate]);
 
 const onSearch = (id) => {
-   axios(`https://rickandmortyapi.com/api/character/${id}`).then(({ data }) => {
+   axios(`http://localhost:3001/rickandmorty/character/${id}`).then(({ data }) => {
       if (data.name) {
          setCharacters((oldChars) => [...oldChars, data]);
       } else {
@@ -55,6 +56,7 @@ return (
             <Route path="/home" element={<Cards characters={characters} onClose={onClose}/>} />
             <Route path="/about" element={<About />} />
             <Route path="/detail/:id" element={<Detail />} />
+            <Route path="/favorites" element={<Favorites />} />
          </Routes>
       </div>
    );
