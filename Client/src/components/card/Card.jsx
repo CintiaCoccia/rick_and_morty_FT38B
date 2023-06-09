@@ -26,7 +26,7 @@ const [isFav, setisFav] = useState(false);  //VER PROPS como ARGUMENTO.
             setisFav(true);
          }
       });
-   }, [props.myFavorites]);
+   }, [props.id, props.myFavorites]);
 
    
    return (

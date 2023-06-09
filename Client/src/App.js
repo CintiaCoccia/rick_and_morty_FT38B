@@ -18,14 +18,15 @@ const [characters, setCharacters] = useState([]);
 
 const navigate = useNavigate();
 const [access, setAccess] = useState(false);
-const EMAIL = 'cintia_08@hotmail.com';
-const PASSWORD = 'abc1234';
 
 function login(userData) {
-   if (userData.password === PASSWORD && userData.username === EMAIL) {
-      setAccess(true);
-      navigate('/home');
-   }
+   const { username, password } = userData;
+   const URL = 'http://localhost:3001/rickandmorty/login/';
+   axios(URL + `?email=${username}&password=${password}`).then(({ data }) => {
+      const { access } = data;
+      setAccess(data);
+      access && navigate('/home');
+   });
 }
 
 useEffect(() => {
