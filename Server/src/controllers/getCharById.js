@@ -23,10 +23,31 @@ const axios = require("axios");
 
 //------------------------- contenido anterior a hw express
 
-module.exports = function getCharById(request, response) {
-    const id = request.params.id
-    axios(`https://rickandmortyapi.com/api/character/${id}`)
-        .then((res) => {
+module.exports = async function getCharById(request, response) { //VERSION ASYNC AWAIT
+    // const id = request.params.id //VERSION PROMESA
+    // axios(`https://rickandmortyapi.com/api/character/${id}`)
+    //     .then((res) => {
+    //         const obj = {
+    //             id: res.data.id,
+    //             name: res.data.name,
+    //             gender: res.data.gender,
+    //             species: res.data.species,
+    //             origin: res.data.origin,
+    //             image: res.data.image,
+    //             status: res.data.status
+    //         }
+    //         return response.status(200).json(obj)
+    //     })
+    //     .catch((error) => {
+    //         if (error.response.status == 404) {
+    //             return response.status(404).json({ message: "Not found" })
+    //         } else {
+    //             return response.status(500).json({ message: error.response.data.error })
+    //         }
+    //     })
+         try {
+            const id = request.params.id;
+            const res = await axios(`https://rickandmortyapi.com/api/character/${id}`);
             const obj = {
                 id: res.data.id,
                 name: res.data.name,
@@ -35,16 +56,15 @@ module.exports = function getCharById(request, response) {
                 origin: res.data.origin,
                 image: res.data.image,
                 status: res.data.status
-            }
-            return response.status(200).json(obj)
-        })
-        .catch((error) => {
-            if (error.response.status == 404) {
-                return response.status(404).json({ message: "Not found" })
+            };
+            return response.status(200).json(obj);
+        } catch (error) {
+            if (error.response.status === 404) {
+                return response.status(404).json({ message: "Not found" });
             } else {
-                return response.status(500).json({ message: error.response.data.error })
+                return response.status(500).json({ message: error.response.data.error });
             }
-        })
-}
+        }
+    }
 
 

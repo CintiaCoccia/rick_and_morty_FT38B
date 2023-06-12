@@ -19,30 +19,57 @@ const [characters, setCharacters] = useState([]);
 const navigate = useNavigate();
 const [access, setAccess] = useState(false);
 
-function login(userData) {
+//  function login(userData) { // VERSION PROMESA
+//    const { username, password } = userData;
+//    const URL = 'http://localhost:3001/rickandmorty/login/';
+//     axios(URL + `?email=${username}&password=${password}`).then(({ data }) => {
+//       const { access } = data;
+//       setAccess(data);
+//       access && navigate('/home');
+//    });
+// } ----------------------------------------
+async function login(userData) {
    const { username, password } = userData;
    const URL = 'http://localhost:3001/rickandmorty/login/';
-   axios(URL + `?email=${username}&password=${password}`).then(({ data }) => {
+
+   try {
+      const { data } = await axios(URL + `?email=${username}&password=${password}`);
       const { access } = data;
       setAccess(data);
       access && navigate('/home');
-   });
+   } catch (error) {
+      console.error(error.message);
+   }
 }
+
 
 useEffect(() => {
    !access && navigate('/');
 }, [access, navigate]);
-
-const onSearch = (id) => {
-   axios(`http://localhost:3001/rickandmorty/character/${id}`).then(({ data }) => {
-      if (data.name) {
-         setCharacters((oldChars) => [...oldChars, data]);
-      } else {
-         window.alert('¡No hay personajes con este ID!');
+//--------------------------------------------------------------------------------------
+// const onSearch = (id) => { VERION PROMESA
+//    axios(`http://localhost:3001/rickandmorty/character/${id}`).then(({ data }) => {
+//       if (data.name) {
+//          setCharacters((oldChars) => [...oldChars, data]);
+//       } else {
+//          window.alert('¡No hay personajes con este ID!');
+//       }
+//    });
+// } ABAJO VERSION ASYNC AWAIT
+const onSearch = async (id) => {
+   try {
+       const { data } = await axios(`http://localhost:3001/rickandmorty/character/${id}`);
+       if (data.name) {
+           setCharacters((oldChars) => [...oldChars, data]);
+       } else {
+         throw new Error('No hay personajes con este ID');
       }
-   });
+  } catch (error) {
+      console.error(error.message);
+  }
 }
 
+//--------------------------------------------------------------------------------
 const onClose = id => {
    setCharacters(characters.filter(char => char.id !== id))
 }
