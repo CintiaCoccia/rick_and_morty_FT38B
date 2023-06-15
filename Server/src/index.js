@@ -1,6 +1,7 @@
 const express = require('express');
 const morgan = require('morgan')
-const router = require('./routes/index')
+const router = require('./routes/index');
+const { conn } = require('./DB_connection');
 const PORT = 3001;
 
 const server = express();
@@ -28,9 +29,20 @@ server.use((req, res, next) => {
 // middleware para agregar rutas
 server.use("/rickandmorty", router);
 
-server.listen(PORT, () => {
-   console.log('Server raised in port: ' + PORT);
-});
+// server.listen(PORT, async() => {
+//    // await Sequelize.sync({ force: true }) agregado recien
+//    console.log('Server raised in port: ' + PORT);
+// });
+
+conn.sync({ force: true })
+.then(() => {
+   server.listen(PORT,() => {
+      console.log('Server raised in port ' + PORT);  
+   })
+})
+.catch(error => console.log(error.message))
+
+
 
 
 // const http = require("http");
