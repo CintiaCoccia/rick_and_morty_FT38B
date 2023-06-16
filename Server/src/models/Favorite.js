@@ -6,6 +6,7 @@ module.exports = (sequelize) => {
          type: DataTypes.INTEGER,
          allowNull: false,
          primaryKey: true,
+         autoIncrement: true
       },
       name:{
          type: DataTypes.STRING,
@@ -24,7 +25,7 @@ module.exports = (sequelize) => {
          allowNull: false
       },
       origin: {
-         type: DataTypes.STRING,
+         type: DataTypes.JSON,
          allowNull: false,
       },
       image: {

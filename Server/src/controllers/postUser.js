@@ -7,8 +7,8 @@ module.exports = async function (request, response) {
         return response.status(400).send("Faltan datos")
     }
     try {
-        const [user, created] = await User.findOrCreate({
-            where: { email: email, password: password }
+        const [user, created] = await User.findOrCreate({ //findOrCreate devuelve un [ ], por lo que [ user, created] es destructuring de un arreglo.
+            where: { email: email, password: password } 
         })
         return response.status(200).json(user);
     } catch(error) {
