@@ -34,7 +34,7 @@ server.use("/rickandmorty", router);
 //    console.log('Server raised in port: ' + PORT);
 // });
 
-conn.sync({ force: true })
+conn.sync({ force: false })
 .then(() => {
    server.listen(PORT,() => {
       console.log('Server raised in port ' + PORT);  
